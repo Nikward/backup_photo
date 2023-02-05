@@ -1,6 +1,6 @@
-from api.vk_api import vk_user
+from api.vk_api import VkUser
 from data import vk_token
-from api.ya_disk_api import ya_disk_api
+from api.ya_disk_api import YandexApi
 from data import ya_token
 from time import sleep
 import json
@@ -16,9 +16,9 @@ def count_photo(obj):
 if __name__ == '__main__':
     user_id = int(input('Введите id пользователя Вконтакте: '))
     ver_api = float(input('Введите версию api: '))
-    user = vk_user(vk_token,user_id,ver_api, count=5)
+    user = VkUser(vk_token, user_id, ver_api, count=5)
     fin_list = []
-    ya_disk = ya_disk_api(ya_token, f'id_{user_id}')
+    ya_disk = YandexApi(ya_token, f'id_{user_id}')
     for photo in tqdm(user.get_data(), total=count_photo(user)):
         ya_disk.upload_photo(photo[0],photo[1])
         sleep(0.1)

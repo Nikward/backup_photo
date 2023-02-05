@@ -1,7 +1,7 @@
 import requests
 from datetime import datetime
 
-class vk_user:
+class VkUser:
     method_url = 'https://api.vk.com/method/photos.get'
     type_photo = ['w', 'z', 'y', 'x', 'r', 'q', 'p', 'o', 'm', 's']
     def __init__(self, token, user_id, version, album_type='profile',count=5):

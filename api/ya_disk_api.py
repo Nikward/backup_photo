@@ -1,7 +1,7 @@
 import requests
 from data import ya_token
 
-class ya_disk_api:
+class YandexApi:
     url = 'https://cloud-api.yandex.net'
     def __init__(self, token, name_folder):
         self.name_folder = name_folder
