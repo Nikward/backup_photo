@@ -1,11 +1,11 @@
 from time import sleep
 import json
+import configparser
 
 from tqdm import tqdm
 
 from api.vk_api import VkUser
 from api.ya_disk_api import YandexApi
-from data import vk_token, ya_token
 
 
 def count_photo(obj):
@@ -15,15 +15,23 @@ def count_photo(obj):
     return count
 
 
+def get_tokens():
+    config = configparser.ConfigParser()
+    config.read("settings.ini")
+    vk_token = config['vk_api']['vk_token']
+    ya_token = config['yandex_api']['ya_token']
+    return vk_token, ya_token
+
+
 if __name__ == '__main__':
     user_id = input('Введите id или screen_name пользователя Вконтакте: ')
     amount_photo = int(input('Укажите количество загружаемых фото: '))
 
-    user = VkUser(vk_token, user_id=user_id, count=amount_photo)
+    user = VkUser(get_tokens()[0], user_id=user_id, count=amount_photo)
 
     fin_list = []
 
-    ya_disk = YandexApi(ya_token, f'id_{user_id}')
+    ya_disk = YandexApi(get_tokens()[1], f'id_{user_id}')
 
     for photo in tqdm(user.get_data(), total=count_photo(user)):
         ya_disk.upload_photo(photo[0], photo[1])

@@ -1,4 +1,0 @@
-vk_token = ''
-
-
-ya_token = ''
