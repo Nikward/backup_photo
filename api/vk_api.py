@@ -5,17 +5,17 @@ import requests
 
 class VkUser:
     method_url = 'https://api.vk.com/method/photos.get'
-    method_photos_get = 'https://api.vk.com/method/users.get'
+    method_users_get = 'https://api.vk.com/method/users.get'
     type_photo = ['w', 'z', 'y', 'x', 'r', 'q', 'p', 'o', 'm', 's']
 
     def __init__(self, token, user_id, version=5.131, album_type='profile', count=5):
-        self.params_photos_get = {
+        self.params_users_get = {
             'access_token': token,
             'user_ids': user_id,
             'fields': 'screen_name',
             'v': version
         }
-        response = requests.get(self.method_photos_get, params=self.params_photos_get)
+        response = requests.get(self.method_users_get, params=self.params_users_get)
         users = response.json()
         user_id = users['response'][0]['id']
 
