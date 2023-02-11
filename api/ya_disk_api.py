@@ -16,7 +16,7 @@ class YandexApi:
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token
                    }
-        create_folder = requests.put(method_url, params=params, headers=headers)
+        requests.put(method_url, params=params, headers=headers)
         print(f'Папка "{self.name_folder}" успешно создана.')
 
     def upload_photo(self, name_file, url):
@@ -26,9 +26,7 @@ class YandexApi:
                   'url': url,
                   'disable_redirects': False
                   }
-
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token
                    }
-
-        save_file = requests.post(method_url, params=params, headers=headers)
+        requests.post(method_url, params=params, headers=headers)
