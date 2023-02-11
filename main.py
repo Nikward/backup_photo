@@ -30,9 +30,7 @@ if __name__ == '__main__':
     user = VkUser(get_tokens()[0], user_id=user_id, count=amount_photo)
 
     fin_list = []
-
     ya_disk = YandexApi(get_tokens()[1], f'id_{user_id}')
-
     for photo in tqdm(user.get_data(), total=count_photo(user)):
         ya_disk.upload_photo(photo[0], photo[1])
         sleep(0.1)

@@ -11,23 +11,24 @@ class YandexApi:
 
     def create_new_folder(self):
         specific_url = '/v1/disk/resources'
-        metod_url = self.url + specific_url
+        method_url = self.url + specific_url
         params = {'path': self.name_folder}
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token
                    }
-        create_folder = requests.put(metod_url, params=params, headers=headers)
+        create_folder = requests.put(method_url, params=params, headers=headers)
         print(f'Папка "{self.name_folder}" успешно создана.')
 
     def upload_photo(self, name_file, url):
         specific_url = '/v1/disk/resources/upload'
-        metod_url = self.url + specific_url
+        method_url = self.url + specific_url
         params = {'path': f'{self.name_folder}/{name_file}',
-                  'url': url
+                  'url': url,
+                  'disable_redirects': False
                   }
 
         headers = {'Content-Type': 'application/json',
                    'Authorization': self.token
                    }
 
-        save_file = requests.post(metod_url, params=params, headers=headers)
+        save_file = requests.post(method_url, params=params, headers=headers)

@@ -35,9 +35,16 @@ class VkUser:
         return photos['response']['items']
 
     def get_data(self):
+        list_all_count = []
+        for photo in self._get_info_photo():
+            list_all_count.append(photo['likes']['count'])
+        list_dupl = [x for x in list_all_count if list_all_count.count(x) >= 2]
         for photo in self._get_info_photo():
             count_like = photo['likes']['count']
             date = datetime.utcfromtimestamp(int(photo['date'])).strftime('%d.%m.%Y')
             sizes = photo['sizes']
             sorted_size = sorted(sizes, key=lambda size: self.type_photo.index(size['type']))
-            yield count_like, sorted_size[0]['url'], date, sizes[0]['type']
+            if count_like not in set(list_dupl):
+                yield count_like, sorted_size[0]['url'], sorted_size[0]['type']
+            else:
+                yield str(count_like) + '_' + date, sorted_size[0]['url'], sorted_size[0]['type']
